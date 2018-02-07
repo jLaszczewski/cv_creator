@@ -8,6 +8,7 @@ import {
   BASIC_INFORMATION_FORM,
   LINKS_FORM,
   TRAINING_FORM,
+  PERSONALITY_FORM,
   ADD_ITEM
 } from '../actions/types';
 import CategoriesList from '../public/CategoriesList';
@@ -28,13 +29,18 @@ const INITIAL_STATE = {
   },
   tranings: [
   ],
+  personality: {
+    realiability: 0,
+    abilityToLearn: 0,
+    teamSkills: 0,
+    flexibility: 0
+  },
   categories: {
     ...CategoriesList
   }
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log(action);
   switch (action.type) {
     case EMPLOYEE_UPDATE:
       switch (action.payload.form) {
@@ -52,21 +58,28 @@ export default (state = INITIAL_STATE, action) => {
               [action.payload.prop]: action.payload.value
             }
           };
-          case TRAINING_FORM:
-            if (action.payload.prop === ADD_ITEM) {
-              return { ...state,
-                tranings: state.tranings.concat(action.payload.value)
-              };
-            }
-              return update(state, {
-                tranings: {
-                  [action.payload.prop]: {
-                    [action.payload.objectArray]: { $set: action.payload.value }
-                  }
+        case TRAINING_FORM:
+          if (action.payload.prop === ADD_ITEM) {
+            return { ...state,
+              tranings: state.tranings.concat(action.payload.value)
+            };
+          }
+            return update(state, {
+              tranings: {
+                [action.payload.prop]: {
+                  [action.payload.objectArray]: { $set: action.payload.value }
                 }
               }
-            );
-
+            }
+          );
+        case PERSONALITY_FORM:
+          return {
+            ...state,
+            personality: {
+              ...state.personality,
+                [action.payload.prop]: action.payload.value
+              }
+            };
         default:
           return state;
       }

@@ -1,17 +1,81 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { CardSection } from '../../../../common';
+import { connect } from 'react-redux';
+import { CardSection, SliderInput } from '../../../../common';
+import { employeeUpdate } from '../../../../../actions';
+import { PERSONALITY_FORM } from '../../../../../actions/types';
 
-class PersonalityForm extends Component {
+
+class PersonalityFormComponent extends Component {
   render() {
+    console.log(this.props);
+    const { realiability, abilityToLearn, teamSkills, flexibility } = this.props;
+
+    console.log(this.props);
+
     return (
-      <View>
-        <CardSection>
-          <Text>Personality data form</Text>
+        <CardSection style={{ flexDirection: 'column' }}>
+          <SliderInput
+            maximumValue={100}
+            minimumValue={1}
+            step={1}
+            isPercent
+            label='Realiability'
+            onSlidingComplete={(value) => this.props.employeeUpdate({
+              form: PERSONALITY_FORM,
+              prop: 'realiability',
+              value })}
+            value={realiability}
+          />
+          <SliderInput
+            maximumValue={100}
+            minimumValue={1}
+            step={1}
+            isPercent
+            label='Ability to learn'
+            onSlidingComplete={(value) => this.props.employeeUpdate({
+              form: PERSONALITY_FORM,
+              prop: 'abilityToLearn',
+              value })}
+            value={abilityToLearn}
+
+          />
+          <SliderInput
+            maximumValue={100}
+            minimumValue={1}
+            step={1}
+            isPercent
+            label='Team skills'
+            onSlidingComplete={(value) => this.props.employeeUpdate({
+              form: PERSONALITY_FORM,
+              prop: 'teamSkills',
+              value })}
+            value={teamSkills}
+
+          />
+          <SliderInput
+            maximumValue={100}
+            minimumValue={1}
+            step={1}
+            isPercent
+            label='Flexibility'
+            onSlidingComplete={(value) => this.props.employeeUpdate({
+              form: PERSONALITY_FORM,
+              prop: 'flexibility',
+              value })}
+            value={flexibility}
+          />
         </CardSection>
-      </View>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  console.log(state.employeeForm);
+  const { realiability, abilityToLearn, teamSkills, flexibility } = state.employeeForm.personality;
+
+  return { realiability, abilityToLearn, teamSkills, flexibility };
+};
+
+const PersonalityForm = connect(mapStateToProps, { employeeUpdate })(PersonalityFormComponent);
 
 export { PersonalityForm };

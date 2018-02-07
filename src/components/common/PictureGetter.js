@@ -20,8 +20,6 @@ class PictureGetter extends Component {
     const { imageStyle, noImageStyle } = styles;
 
     if (photoUri) {
-      console.log(photoUri);
-
       return (
         <Image
           style={imageStyle}
