@@ -1,0 +1,42 @@
+[
+  {
+    "id": 0,
+    "title": "BASIC INFORMATION",
+    "isOpen": false
+  },
+  {
+    "id": 1,
+    "title": "LINKS",
+    "isOpen": false
+  },
+  {
+    "id": 2,
+    "title": "CERTIFICATIONS & TRAINIGS",
+    "isOpen": false
+  },
+  {
+    "id": 3,
+    "title": "PERSONALITY",
+    "isOpen": false
+  },
+  {
+    "id": 4,
+    "title": "PROFESSIONAL SKILLS",
+    "isOpen": false
+  },
+  {
+    "id": 5,
+    "title": "WORK EXPERIENCE",
+    "isOpen": false
+  },
+  {
+    "id": 6,
+    "title": "EDUCATION",
+    "isOpen": false
+  },
+  {
+    "id": 7,
+    "title": "PORTFOLIO",
+    "isOpen": false
+  }
+]

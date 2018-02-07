@@ -1,0 +1,11 @@
+{
+  "name": "cv_creator",
+  "displayName": "cv_creator",
+  "ios": {
+    "infoPlist": {
+      "NSPhotoLibraryAddUsageDescription": "Give <appName> permission to save to your photos",
+      "NSPhotoLibraryUsageDescription": "Give <appName> permission to save to your photos",
+      "NSCameraUsageDescription": "Give <appName> permission to save to your photos",
+    }
+  }
+}
