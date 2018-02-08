@@ -8,5 +8,6 @@ export const BASIC_INFORMATION_FORM = 'basic_information_from';
 export const LINKS_FORM = 'links_from';
 export const TRAINING_FORM = 'training_form';
 export const ADD_ITEM = 'add_item';
+export const REMOVE_ITEM = 'remove_item';
 export const PERSONALITY_FORM = 'personality_form';
-export const SKILL_FORM = 'skill_form';
+export const SKILLS_FORM = 'skills_form';

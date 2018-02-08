@@ -54,7 +54,6 @@ class BasicInformationFormComponent extends Component {
               value
             })}
           />
-
           <PictureGetter
             label="Photo"
             photoUri={photoUri}

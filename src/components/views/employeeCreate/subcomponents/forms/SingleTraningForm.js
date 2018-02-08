@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { employeeUpdate } from '../../../../../actions';
-import { Input, OnPressTitle } from '../../../../common';
-import { TRAINING_FORM } from '../../../../../actions/types';
+import { Input, OnPressTitle, Button } from '../../../../common';
+import { TRAINING_FORM, REMOVE_ITEM } from '../../../../../actions/types';
 
 
 class SingleTraningForm extends Component {
@@ -15,30 +15,42 @@ class SingleTraningForm extends Component {
       beginDateOnChangeText,
       finishDateValue,
       finishDateOnChangeText,
-      isOpen
+      isOpen,
+      index
      } = this.props;
 
     if (isOpen) {
       return (
         <View>
-        <Input
-          label='name'
-          placeholder='iOS App Development with Swift'
-          value={nameValue}
-          onChangeText={nameOnChangeText}
-        />
-        <Input
-          label='Begin date'
-          placeholder='FEB 2017'
-          value={beginDateValue}
-          onChangeText={beginDateOnChangeText}
-        />
-        <Input
-          label='Finish date'
-          placeholder='MAR 2017'
-          value={finishDateValue}
-          onChangeText={finishDateOnChangeText}
-        />
+          <Input
+            label='name'
+            placeholder='iOS App Development with Swift'
+            value={nameValue}
+            onChangeText={nameOnChangeText}
+          />
+          <Input
+            label='Begin date'
+            placeholder='FEB 2017'
+            value={beginDateValue}
+            onChangeText={beginDateOnChangeText}
+          />
+          <Input
+            label='Finish date'
+            placeholder='MAR 2017'
+            value={finishDateValue}
+            onChangeText={finishDateOnChangeText}
+          />
+          <Button
+            redButton
+            onPress={() => this.props.employeeUpdate({
+              form: TRAINING_FORM,
+              prop: REMOVE_ITEM,
+              value: !isOpen,
+              object: index
+            })}
+          >
+            Delete
+          </Button>
         </View>
       );
     }

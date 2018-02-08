@@ -10,7 +10,8 @@ import {
   TRAINING_FORM,
   PERSONALITY_FORM,
   SKILLS_FORM,
-  ADD_ITEM
+  ADD_ITEM,
+  REMOVE_ITEM
 } from '../actions/types';
 import CategoriesList from '../public/CategoriesList';
 
@@ -67,6 +68,14 @@ export default (state = INITIAL_STATE, action) => {
               tranings: state.tranings.concat(action.payload.value)
             };
           }
+          if (action.payload.prop === REMOVE_ITEM) {
+            return { ...state,
+              tranings: [
+                ...state.tranings.slice(0, action.payload.object),
+                ...state.tranings.slice(action.payload.object + 1)
+              ]
+            };
+          }
             return update(state, {
               tranings: {
                 [action.payload.prop]: {
@@ -87,6 +96,14 @@ export default (state = INITIAL_STATE, action) => {
         if (action.payload.prop === ADD_ITEM) {
           return { ...state,
             skills: state.skills.concat(action.payload.value)
+          };
+        }
+        if (action.payload.prop === REMOVE_ITEM) {
+          return { ...state,
+            skills: [
+              ...state.skills.slice(0, action.payload.object),
+              ...state.skills.slice(action.payload.object + 1)
+            ]
           };
         }
           return update(state, {
