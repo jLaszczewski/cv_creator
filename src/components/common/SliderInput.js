@@ -5,7 +5,7 @@ class SliderInput extends Component {
 
   constructor(props) {
     super(props);
-    
+
     const { value = 0 } = this.props;
 
     this.state = {
@@ -13,6 +13,13 @@ class SliderInput extends Component {
     };
   }
 
+  renderTitle() {
+    const { label } = this.props;
+
+    if (label) {
+      return <Text>{label}</Text>;
+    }
+  }
 
   renderResult() {
     if (this.props.isPercent) {
@@ -36,14 +43,11 @@ class SliderInput extends Component {
       onSlidingComplete,
       step,
       value = 0,
-      label
     } = this.props;
     const { sliderViewContainer, containerStyle, textViewStyle } = styles;
     return (
       <View style={containerStyle}>
-        <Text>
-          {label}
-        </Text>
+        {this.renderTitle()}
         <View style={sliderViewContainer}>
           <Slider
             style={{ flex: 1 }}

@@ -16,7 +16,6 @@ class PersonalityFormComponent extends Component {
             minimumValue={1}
             step={1}
             isPercent
-            label='Realiability'
             onSlidingComplete={(value) => this.props.employeeUpdate({
               form: PERSONALITY_FORM,
               prop: 'realiability',
