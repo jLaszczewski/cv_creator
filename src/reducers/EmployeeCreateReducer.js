@@ -9,6 +9,7 @@ import {
   LINKS_FORM,
   TRAINING_FORM,
   PERSONALITY_FORM,
+  SKILLS_FORM,
   ADD_ITEM
 } from '../actions/types';
 import CategoriesList from '../public/CategoriesList';
@@ -35,6 +36,8 @@ const INITIAL_STATE = {
     teamSkills: 0,
     flexibility: 0
   },
+  skills: [
+  ],
   categories: {
     ...CategoriesList
   }
@@ -67,7 +70,7 @@ export default (state = INITIAL_STATE, action) => {
             return update(state, {
               tranings: {
                 [action.payload.prop]: {
-                  [action.payload.objectArray]: { $set: action.payload.value }
+                  [action.payload.object]: { $set: action.payload.value }
                 }
               }
             }
@@ -80,6 +83,20 @@ export default (state = INITIAL_STATE, action) => {
                 [action.payload.prop]: action.payload.value
               }
             };
+        case SKILLS_FORM:
+        if (action.payload.prop === ADD_ITEM) {
+          return { ...state,
+            skills: state.skills.concat(action.payload.value)
+          };
+        }
+          return update(state, {
+            skills: {
+              [action.payload.prop]: {
+                [action.payload.object]: { $set: action.payload.value }
+              }
+            }
+          }
+        );
         default:
           return state;
       }

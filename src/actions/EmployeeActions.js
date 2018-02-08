@@ -17,10 +17,10 @@ export const selectCategory = ({ id, isOpen }) => {
   };
 };
 
-export const employeeUpdate = ({ form, prop, value, objectArray }) => {
+export const employeeUpdate = ({ form, prop, value, object }) => {
   return {
     type: EMPLOYEE_UPDATE,
-    payload: { form, prop, value, objectArray }
+    payload: { form, prop, value, object }
   };
 };
 

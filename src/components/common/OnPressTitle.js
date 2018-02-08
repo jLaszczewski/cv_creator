@@ -29,6 +29,7 @@ const styles = {
   textContainer: {
     ...StyleSheet.absoluteFillObject,
     flex: 1,
+    paddingHorizontal: 30,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center'

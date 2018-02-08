@@ -31,21 +31,21 @@ class CertificationAndTrainingsFormContent extends Component {
             form: TRAINING_FORM,
             prop: key,
             value: nameValue,
-            objectArray: 'nameValue'
+            object: 'nameValue'
           })}
           beginDateValue={traning.beginDateValue}
           beginDateOnChangeText={(beginDateValue) => this.props.employeeUpdate({
             form: TRAINING_FORM,
             prop: key,
             value: beginDateValue,
-            objectArray: 'beginDateValue'
+            object: 'beginDateValue'
           })}
           finishDateValue={traning.finishDateValue}
           finishDateOnChangeText={(finishDateValue) => this.props.employeeUpdate({
             form: TRAINING_FORM,
             prop: key,
             value: finishDateValue,
-            objectArray: 'finishDateValue'
+            object: 'finishDateValue'
           })}
           isOpen={traning.isOpen}
         />

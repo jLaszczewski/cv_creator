@@ -31,7 +31,7 @@ class SliderInput extends Component {
     }
     return (
       <Text>
-        {`${this.state.sliderValue}%`}
+        {`${this.state.sliderValue}`}
       </Text>
     );
   }
@@ -70,6 +70,7 @@ class SliderInput extends Component {
 const styles = {
   containerStyle: {
     flex: 1,
+    marginLeft: 20,
     alignItems: 'center',
     justifyContent: 'center'
   },
