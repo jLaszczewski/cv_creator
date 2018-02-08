@@ -7,10 +7,6 @@ import SingleTraningForm from './SingleTraningForm';
 import { TRAINING_FORM, ADD_ITEM } from '../../../../../actions/types';
 
 class CertificationAndTrainingsFormContent extends Component {
-  componentWillMount() {
-
-  }
-
   addTraining() {
     this.props.employeeUpdate({
       form: TRAINING_FORM,

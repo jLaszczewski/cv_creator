@@ -7,10 +7,7 @@ import { PERSONALITY_FORM } from '../../../../../actions/types';
 
 class PersonalityFormComponent extends Component {
   render() {
-    console.log(this.props);
     const { realiability, abilityToLearn, teamSkills, flexibility } = this.props;
-
-    console.log(this.props);
 
     return (
         <CardSection style={{ flexDirection: 'column' }}>
@@ -26,6 +23,7 @@ class PersonalityFormComponent extends Component {
               value })}
             value={realiability}
           />
+
           <SliderInput
             maximumValue={100}
             minimumValue={1}
@@ -70,7 +68,6 @@ class PersonalityFormComponent extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.employeeForm);
   const { realiability, abilityToLearn, teamSkills, flexibility } = state.employeeForm.personality;
 
   return { realiability, abilityToLearn, teamSkills, flexibility };

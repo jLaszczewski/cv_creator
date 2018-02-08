@@ -1,9 +1,9 @@
 import React from 'react';
 import { Text, View, Image, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
-const img = require('../../../../public/icons/showMore/img.png');
+const img = require('../../public/icons/showMore/img.png');
 
-const CategoryTitle = ({ children, onPress }) => {
+const OnPressTitle = ({ children, onPress }) => {
   const { rowStyle, categoryTitleStyle, textContainer } = styles;
 
   return (
@@ -38,4 +38,4 @@ const styles = {
   }
 };
 
-export { CategoryTitle };
+export { OnPressTitle };

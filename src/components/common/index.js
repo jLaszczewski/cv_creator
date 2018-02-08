@@ -7,3 +7,4 @@ export * from './Spinner';
 export * from './Confirm';
 export * from './PictureGetter';
 export * from './SliderInput';
+export * from './OnPressTitle';

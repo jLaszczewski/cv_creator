@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { employeeUpdate } from '../../../../../actions';
-import { Input, CardSection } from '../../../../common';
-import { CategoryTitle } from '../CategoryTitle';
+import { Input, CardSection, OnPressTitle } from '../../../../common';
 import { TRAINING_FORM } from '../../../../../actions/types';
 
 
@@ -54,7 +53,7 @@ class SingleTraningForm extends Component {
 
     return (
       <CardSection style={{ flexDirection: 'column' }}>
-        <CategoryTitle
+        <OnPressTitle
           onPress={() => this.props.employeeUpdate({
             form: TRAINING_FORM,
             prop: index,
@@ -63,7 +62,7 @@ class SingleTraningForm extends Component {
           })}
         >
           {nameValue}
-        </CategoryTitle>
+        </OnPressTitle>
         {this.renderContent()}
       </CardSection>
     );

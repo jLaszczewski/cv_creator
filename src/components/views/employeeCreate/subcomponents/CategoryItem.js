@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { View, LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
-import { CardSection, Card } from '../../../common';
-import { CategoryTitle } from './CategoryTitle';
+import { CardSection, Card, OnPressTitle } from '../../../common';
 import { selectCategory } from '../../../../actions';
 import {
   BasicInformationForm,
@@ -53,9 +52,9 @@ class CategoryItem extends Component {
     return (
       <Card>
         <CardSection>
-          <CategoryTitle onPress={() => this.props.selectCategory({ id, isOpen: !isOpen })}>
+          <OnPressTitle onPress={() => this.props.selectCategory({ id, isOpen: !isOpen })}>
             {title}
-          </CategoryTitle>
+          </OnPressTitle>
         </CardSection>
         {this.renderCategory()}
       </Card>
