@@ -1,11 +1,11 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
-const Button = ({ onPress, redButton, children }) => {
+const Button = ({ onPress, redButton, style, children }) => {
   const { buttonStyle, textStyle, redTextStyle, redButtonStyle } = styles;
   if (redButton) {
     return (
-        <TouchableOpacity onPress={onPress} style={redButtonStyle}>
+        <TouchableOpacity onPress={onPress} style={[redButtonStyle, style]}>
           <Text style={redTextStyle}>
             {children}
           </Text>
@@ -13,7 +13,7 @@ const Button = ({ onPress, redButton, children }) => {
     );
   }
   return (
-      <TouchableOpacity onPress={onPress} style={buttonStyle}>
+      <TouchableOpacity onPress={onPress} style={[buttonStyle, style]}>
         <Text style={textStyle}>
           {children}
         </Text>

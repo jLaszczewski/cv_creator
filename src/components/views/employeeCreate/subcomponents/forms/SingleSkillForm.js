@@ -40,6 +40,7 @@ class SingleSkillForm extends Component {
               object: index
             })}
             redButton
+            style={{ marginTop: 10, marginBottom: 5 }}
           >
             Delete
           </Button>

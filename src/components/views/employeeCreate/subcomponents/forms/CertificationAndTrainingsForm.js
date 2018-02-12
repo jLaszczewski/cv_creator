@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { CardSection, Button } from '../../../../common';
 import { employeeUpdate } from '../../../../../actions';
 import SingleTraningForm from './SingleTraningForm';
-import { TRAINING_FORM, ADD_ITEM } from '../../../../../actions/types';
+import { TRAINING_FORM, ADD_ITEM, REMOVE_ITEM } from '../../../../../actions/types';
 
 class CertificationAndTrainingsFormContent extends Component {
   addTraining() {
@@ -46,6 +46,12 @@ class CertificationAndTrainingsFormContent extends Component {
             prop: key,
             value: finishDateValue,
             object: 'finishDateValue'
+          })}
+          onPressDelete={() => this.props.employeeUpdate({
+            form: TRAINING_FORM,
+            prop: REMOVE_ITEM,
+            value: !traning.isOpen,
+            object: key
           })}
           isOpen={traning.isOpen}
         />

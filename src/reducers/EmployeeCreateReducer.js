@@ -10,6 +10,7 @@ import {
   TRAINING_FORM,
   PERSONALITY_FORM,
   SKILLS_FORM,
+  EXPERIENCES_FORM,
   ADD_ITEM,
   REMOVE_ITEM
 } from '../actions/types';
@@ -29,16 +30,15 @@ const INITIAL_STATE = {
     stackOverflow: '',
     email: ''
   },
-  tranings: [
-  ],
+  tranings: [],
   personality: {
     realiability: 0,
     abilityToLearn: 0,
     teamSkills: 0,
     flexibility: 0
   },
-  skills: [
-  ],
+  skills: [],
+  experiences: [],
   categories: {
     ...CategoriesList
   }
@@ -92,28 +92,52 @@ export default (state = INITIAL_STATE, action) => {
                 [action.payload.prop]: action.payload.value
               }
             };
+
         case SKILLS_FORM:
-        if (action.payload.prop === ADD_ITEM) {
-          return { ...state,
-            skills: state.skills.concat(action.payload.value)
-          };
-        }
-        if (action.payload.prop === REMOVE_ITEM) {
-          return { ...state,
-            skills: [
-              ...state.skills.slice(0, action.payload.object),
-              ...state.skills.slice(action.payload.object + 1)
-            ]
-          };
-        }
+          if (action.payload.prop === ADD_ITEM) {
+            return { ...state,
+              skills: state.skills.concat(action.payload.value)
+            };
+          }
+          if (action.payload.prop === REMOVE_ITEM) {
+            return { ...state,
+              skills: [
+                ...state.skills.slice(0, action.payload.object),
+                ...state.skills.slice(action.payload.object + 1)
+              ]
+            };
+          }
           return update(state, {
-            skills: {
+            experiences: {
               [action.payload.prop]: {
                 [action.payload.object]: { $set: action.payload.value }
+                }
               }
             }
+          );
+
+        case EXPERIENCES_FORM:
+          if (action.payload.prop === ADD_ITEM) {
+            return { ...state,
+              experiences: state.experiences.concat(action.payload.value)
+            };
           }
-        );
+          if (action.payload.prop === REMOVE_ITEM) {
+            return { ...state,
+              experiences: [
+                ...state.experiences.slice(0, action.payload.object),
+                ...state.experiences.slice(action.payload.object + 1)
+              ]
+            };
+          }
+          return update(state, {
+            experiences: {
+              [action.payload.prop]: {
+                [action.payload.object]: { $set: action.payload.value }
+                }
+              }
+            }
+          );
         default:
           return state;
       }

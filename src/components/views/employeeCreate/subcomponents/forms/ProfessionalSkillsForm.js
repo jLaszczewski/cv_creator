@@ -7,7 +7,7 @@ import SingleSkillForm from './SingleSkillForm';
 import { SKILLS_FORM, ADD_ITEM } from '../../../../../actions/types';
 
 class ProfessionalSkillsFormComponent extends Component {
-  addTraining() {
+  addSkill() {
     this.props.employeeUpdate({
       form: SKILLS_FORM,
       prop: ADD_ITEM,
@@ -19,9 +19,7 @@ class ProfessionalSkillsFormComponent extends Component {
     });
   }
 
-  renderContent() {
-    const { skills } = this.props;
-
+  renderContent({ skills }) {
     if (skills) {
       return skills.map((skill, key) =>
         <SingleSkillForm
@@ -54,7 +52,7 @@ class ProfessionalSkillsFormComponent extends Component {
           {this.renderContent(this.props)}
         </CardSection>
         <CardSection>
-          <Button onPress={this.addTraining.bind(this)}>
+          <Button onPress={this.addSkill.bind(this)}>
             Add New
           </Button>
         </CardSection>

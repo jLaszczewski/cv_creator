@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { connect } from 'react-redux';
-import { employeeUpdate } from '../../../../../actions';
 import { Input, OnPressTitle, Button } from '../../../../common';
-import { TRAINING_FORM, REMOVE_ITEM } from '../../../../../actions/types';
 
 
 class SingleTraningForm extends Component {
@@ -16,7 +13,7 @@ class SingleTraningForm extends Component {
       finishDateValue,
       finishDateOnChangeText,
       isOpen,
-      index
+      onPressDelete
      } = this.props;
 
     if (isOpen) {
@@ -42,12 +39,8 @@ class SingleTraningForm extends Component {
           />
           <Button
             redButton
-            onPress={() => this.props.employeeUpdate({
-              form: TRAINING_FORM,
-              prop: REMOVE_ITEM,
-              value: !isOpen,
-              object: index
-            })}
+            onPress={onPressDelete}
+            style={{ marginTop: 10, marginBottom: 5 }}
           >
             Delete
           </Button>
@@ -59,19 +52,13 @@ class SingleTraningForm extends Component {
   render() {
     const {
       nameValue,
-      index,
-      isOpen
+      onPressExtension
      } = this.props;
 
     return (
       <View style={{ flexDirection: 'column' }}>
         <OnPressTitle
-          onPress={() => this.props.employeeUpdate({
-            form: TRAINING_FORM,
-            prop: index,
-            value: !isOpen,
-            object: 'isOpen'
-          })}
+          onPress={onPressExtension}
         >
           {nameValue}
         </OnPressTitle>
@@ -81,28 +68,4 @@ class SingleTraningForm extends Component {
   }
 }
 
-// const mapStateToProps = (state) => {
-//   const {
-//     nameValue,
-//     nameOnChangeText,
-//     beginDateValue,
-//     beginDateOnChangeText,
-//     finishDateValue,
-//     finishDateOnChangeText,
-//     isOpen
-//   } = state.employeeForm.tranings;
-//
-//   console.log(state.employeeForm.tranings);
-//
-//   return {
-//     nameValue,
-//     nameOnChangeText,
-//     beginDateValue,
-//     beginDateOnChangeText,
-//     finishDateValue,
-//     finishDateOnChangeText,
-//     isOpen
-//   };
-// };
-
-export default connect(null, { employeeUpdate })(SingleTraningForm);
+export default SingleTraningForm;
