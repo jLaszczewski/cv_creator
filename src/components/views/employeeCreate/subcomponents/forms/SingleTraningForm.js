@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Input, OnPressTitle, Button } from '../../../../common';
+import { Input, OnPressTitle, Button, CardSection } from '../../../../common';
 
 
 class SingleTraningForm extends Component {
@@ -30,12 +30,14 @@ class SingleTraningForm extends Component {
             placeholder='FEB 2017'
             value={beginDateValue}
             onChangeText={beginDateOnChangeText}
+            autoCapitalize='characters'
           />
           <Input
             label='Finish date'
             placeholder='MAR 2017'
             value={finishDateValue}
             onChangeText={finishDateOnChangeText}
+            autoCapitalize='characters'
           />
           <Button
             redButton
@@ -56,14 +58,14 @@ class SingleTraningForm extends Component {
      } = this.props;
 
     return (
-      <View style={{ flexDirection: 'column' }}>
+      <CardSection style={{ flexDirection: 'column' }}>
         <OnPressTitle
           onPress={onPressExtension}
         >
           {nameValue}
         </OnPressTitle>
         {this.renderContent()}
-      </View>
+      </CardSection>
     );
   }
 }

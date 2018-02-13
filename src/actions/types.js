@@ -12,3 +12,5 @@ export const REMOVE_ITEM = 'remove_item';
 export const PERSONALITY_FORM = 'personality_form';
 export const SKILLS_FORM = 'skills_form';
 export const EXPERIENCES_FORM = 'experiences_form';
+export const EDUCATION_FORM = 'education_form';
+export const PORTFOLIO_FORM = 'portfolio_form';

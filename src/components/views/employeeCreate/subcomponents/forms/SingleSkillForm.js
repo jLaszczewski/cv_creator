@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { connect } from 'react-redux';
-import { employeeUpdate } from '../../../../../actions';
-import { Input, OnPressTitle, SliderInput, Button } from '../../../../common';
-import { SKILLS_FORM, REMOVE_ITEM } from '../../../../../actions/types';
+import { Input, OnPressTitle, SliderInput, Button, CardSection } from '../../../../common';
 
 class SingleSkillForm extends Component {
   renderContent() {
@@ -12,9 +9,11 @@ class SingleSkillForm extends Component {
       nameValue,
       nameOnChangeText,
       onSlidingComplete,
-      sliderValue,
-      index
+      slideValue,
+      onPressDelete
      } = this.props;
+
+     console.log(this.props);
 
     if (isOpen) {
       return (
@@ -27,18 +26,13 @@ class SingleSkillForm extends Component {
           />
           <SliderInput
             maximumValue={10}
-            minimumValue={1}
+            minimumValue={0}
             step={1}
             onSlidingComplete={onSlidingComplete}
-            value={sliderValue}
+            value={slideValue}
           />
           <Button
-            onPress={() => this.props.employeeUpdate({
-              form: SKILLS_FORM,
-              prop: REMOVE_ITEM,
-              value: !isOpen,
-              object: index
-            })}
+            onPress={onPressDelete}
             redButton
             style={{ marginTop: 10, marginBottom: 5 }}
           >
@@ -52,26 +46,20 @@ class SingleSkillForm extends Component {
   render() {
     const {
       nameValue,
-      index,
-      isOpen
+      onPressExtension
      } = this.props;
 
     return (
-      <View style={{ flexDirection: 'column' }}>
+      <CardSection style={{ flexDirection: 'column' }}>
         <OnPressTitle
-          onPress={() => this.props.employeeUpdate({
-            form: SKILLS_FORM,
-            prop: index,
-            value: !isOpen,
-            object: 'isOpen'
-          })}
+          onPress={onPressExtension}
         >
           {nameValue}
         </OnPressTitle>
         {this.renderContent()}
-      </View>
+      </CardSection>
     );
   }
 }
 
-export default connect(null, { employeeUpdate })(SingleSkillForm);
+export default SingleSkillForm;

@@ -15,6 +15,8 @@ class WorkExperienceFormComponent extends Component {
         nameValue: '',
         beginDateValue: '',
         finishDateValue: '',
+        jobTitleValue: '',
+        responsibilityValue: '',
         isOpen: true
       }
     });

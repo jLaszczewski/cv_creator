@@ -25,7 +25,6 @@ class CertificationAndTrainingsFormContent extends Component {
       return tranings.map((traning, key) =>
         <SingleTraningForm
           key={key}
-          index={key}
           nameValue={traning.nameValue}
           nameOnChangeText={(nameValue) => this.props.employeeUpdate({
             form: TRAINING_FORM,
@@ -50,8 +49,14 @@ class CertificationAndTrainingsFormContent extends Component {
           onPressDelete={() => this.props.employeeUpdate({
             form: TRAINING_FORM,
             prop: REMOVE_ITEM,
-            value: !traning.isOpen,
+            value: '',
             object: key
+          })}
+          onPressExtension={() => this.props.employeeUpdate({
+            form: TRAINING_FORM,
+            prop: key,
+            value: !traning.isOpen,
+            object: 'isOpen'
           })}
           isOpen={traning.isOpen}
         />
@@ -62,9 +67,9 @@ class CertificationAndTrainingsFormContent extends Component {
   render() {
     return (
       <View>
-        <CardSection style={{ flexDirection: 'column' }}>
+        <View>
           {this.renderContent(this.props)}
-        </CardSection>
+        </View>
         <CardSection>
           <Button onPress={this.addTraining.bind(this)}>
             Add New

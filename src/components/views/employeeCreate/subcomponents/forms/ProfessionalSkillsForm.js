@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { CardSection, Button } from '../../../../common';
 import { employeeUpdate } from '../../../../../actions';
 import SingleSkillForm from './SingleSkillForm';
-import { SKILLS_FORM, ADD_ITEM } from '../../../../../actions/types';
+import { SKILLS_FORM, ADD_ITEM, REMOVE_ITEM } from '../../../../../actions/types';
 
 class ProfessionalSkillsFormComponent extends Component {
   addSkill() {
@@ -13,18 +13,18 @@ class ProfessionalSkillsFormComponent extends Component {
       prop: ADD_ITEM,
       value: {
         nameValue: '',
-        value: 5,
+        slideValue: 5,
         isOpen: true
       }
     });
   }
 
   renderContent({ skills }) {
+    console.log(skills);
     if (skills) {
       return skills.map((skill, key) =>
         <SingleSkillForm
           key={key}
-          index={key}
           nameValue={skill.nameValue}
           nameOnChangeText={(nameValue) => this.props.employeeUpdate({
             form: SKILLS_FORM,
@@ -33,11 +33,23 @@ class ProfessionalSkillsFormComponent extends Component {
             object: 'nameValue'
           })}
           slideValue={skill.slideValue}
-          onSlidingComplete={(sliderValue) => this.props.employeeUpdate({
+          onSlidingComplete={(slideValue) => this.props.employeeUpdate({
             form: SKILLS_FORM,
             prop: key,
-            value: sliderValue,
-            object: 'sliderValue'
+            value: slideValue,
+            object: 'slideValue'
+          })}
+          onPressDelete={() => this.props.employeeUpdate({
+            form: SKILLS_FORM,
+            prop: REMOVE_ITEM,
+            value: '',
+            object: key
+          })}
+          onPressExtension={() => this.props.employeeUpdate({
+            form: SKILLS_FORM,
+            prop: key,
+            value: !skill.isOpen,
+            object: 'isOpen'
           })}
           isOpen={skill.isOpen}
         />
@@ -48,9 +60,7 @@ class ProfessionalSkillsFormComponent extends Component {
   render() {
     return (
       <View>
-        <CardSection style={{ flexDirection: 'column' }}>
           {this.renderContent(this.props)}
-        </CardSection>
         <CardSection>
           <Button onPress={this.addSkill.bind(this)}>
             Add New

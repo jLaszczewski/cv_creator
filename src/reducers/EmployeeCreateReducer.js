@@ -11,6 +11,8 @@ import {
   PERSONALITY_FORM,
   SKILLS_FORM,
   EXPERIENCES_FORM,
+  EDUCATION_FORM,
+  PORTFOLIO_FORM,
   ADD_ITEM,
   REMOVE_ITEM
 } from '../actions/types';
@@ -39,12 +41,15 @@ const INITIAL_STATE = {
   },
   skills: [],
   experiences: [],
+  education: [],
+  portfolio: [],
   categories: {
     ...CategoriesList
   }
 };
 
 export default (state = INITIAL_STATE, action) => {
+  console.log(action);
   switch (action.type) {
     case EMPLOYEE_UPDATE:
       switch (action.payload.form) {
@@ -108,7 +113,7 @@ export default (state = INITIAL_STATE, action) => {
             };
           }
           return update(state, {
-            experiences: {
+            skills: {
               [action.payload.prop]: {
                 [action.payload.object]: { $set: action.payload.value }
                 }
@@ -138,6 +143,51 @@ export default (state = INITIAL_STATE, action) => {
               }
             }
           );
+
+          case EDUCATION_FORM:
+            if (action.payload.prop === ADD_ITEM) {
+              return { ...state,
+                education: state.education.concat(action.payload.value)
+              };
+            }
+            if (action.payload.prop === REMOVE_ITEM) {
+              return { ...state,
+                education: [
+                  ...state.education.slice(0, action.payload.object),
+                  ...state.education.slice(action.payload.object + 1)
+                ]
+              };
+            }
+            return update(state, {
+              education: {
+                [action.payload.prop]: {
+                  [action.payload.object]: { $set: action.payload.value }
+                  }
+                }
+              }
+            );
+          case PORTFOLIO_FORM:
+            if (action.payload.prop === ADD_ITEM) {
+              return { ...state,
+                portfolio: state.portfolio.concat(action.payload.value)
+              };
+            }
+            if (action.payload.prop === REMOVE_ITEM) {
+              return { ...state,
+                portfolio: [
+                  ...state.portfolio.slice(0, action.payload.object),
+                  ...state.portfolio.slice(action.payload.object + 1)
+                ]
+              };
+            }
+            return update(state, {
+              portfolio: {
+                [action.payload.prop]: {
+                  [action.payload.object]: { $set: action.payload.value }
+                  }
+                }
+              }
+            );
         default:
           return state;
       }
