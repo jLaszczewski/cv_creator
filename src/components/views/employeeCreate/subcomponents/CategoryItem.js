@@ -52,7 +52,7 @@ class CategoryItem extends Component {
     return (
       <Card>
         <CardSection>
-          <OnPressTitle onPress={() => this.props.selectCategory({ id, isOpen: !isOpen })}>
+          <OnPressTitle onPress={() => this.props.selectCategory({ id, isOpen: !isOpen })} isOpen={isOpen}>
             {title}
           </OnPressTitle>
         </CardSection>

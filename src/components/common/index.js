@@ -8,3 +8,4 @@ export * from './Confirm';
 export * from './PictureGetter';
 export * from './SliderInput';
 export * from './OnPressTitle';
+export * from './CheckBox';

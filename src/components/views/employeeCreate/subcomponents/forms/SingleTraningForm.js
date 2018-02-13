@@ -54,13 +54,15 @@ class SingleTraningForm extends Component {
   render() {
     const {
       nameValue,
-      onPressExtension
+      onPressExtension,
+      isOpen
      } = this.props;
 
     return (
       <CardSection style={{ flexDirection: 'column' }}>
         <OnPressTitle
           onPress={onPressExtension}
+          isOpen={isOpen}
         >
           {nameValue}
         </OnPressTitle>

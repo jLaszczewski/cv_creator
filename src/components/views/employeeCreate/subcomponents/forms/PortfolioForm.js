@@ -12,6 +12,7 @@ class PortfolioFormComponent extends Component {
       form: PORTFOLIO_FORM,
       prop: ADD_ITEM,
       value: {
+        nameValue: '',
         descriptionValue: '',
         applicationValue: [],
         statsValue: [],
@@ -20,12 +21,21 @@ class PortfolioFormComponent extends Component {
     });
   }
 
-  renderContent({ portfolio }) {
+  renderContent() {
+    const { portfolio } = this.props;
+
     if (portfolio) {
       return portfolio.map((project, key) =>
         <SingleProjectForm
-          key
+          key={key}
           index={key}
+          nameValue={project.nameValue}
+          nameOnChangeText={(nameValue) => this.props.employeeUpdate({
+            form: PORTFOLIO_FORM,
+            prop: key,
+            value: nameValue,
+            object: 'nameValue'
+          })}
           descriptionValue={project.descriptionValue}
           descriptionOnChangeText={(descriptionValue) => this.props.employeeUpdate({
             form: PORTFOLIO_FORM,
@@ -57,7 +67,7 @@ class PortfolioFormComponent extends Component {
     return (
       <View>
         <View>
-          {this.renderContent(this.props)}
+          {this.renderContent()}
         </View>
         <CardSection>
           <Button onPress={this.addJob.bind(this)}>

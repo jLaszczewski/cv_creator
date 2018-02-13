@@ -1,9 +1,10 @@
 import React from 'react';
 import { Text, View, Image, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
-const img = require('../../public/icons/showMore/img.png');
+const showMore = require('./icons/extension/showMore.png');
+const showLess = require('./icons/extension/showLess.png');
 
-const OnPressTitle = ({ children, onPress }) => {
+const OnPressTitle = ({ children, onPress, isOpen }) => {
   const { rowStyle, categoryTitleStyle, textContainer } = styles;
 
   return (
@@ -14,7 +15,7 @@ const OnPressTitle = ({ children, onPress }) => {
             {children}
           </Text>
         </View>
-        <Image source={img} />
+        <Image source={isOpen ? showLess : showMore} />
       </View>
     </TouchableWithoutFeedback>
   );

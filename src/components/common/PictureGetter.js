@@ -2,15 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-const emptyImage = require('../../public/icons/addPhoto/img.png');
+const emptyImage = require('./icons/addPhoto/img.png');
 
 class PictureGetter extends Component {
-  // getSelectedImages(image) {
-  //   if (image[0]) {
-  //     console.log(image[0].uri);
-  //   }
-  // }
-  //
   getImage() {
     Actions.getImage();
   }

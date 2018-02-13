@@ -21,7 +21,9 @@ class EducationFormComponent extends Component {
     });
   }
 
-  renderContent({ education }) {
+  renderContent() {
+    const { education } = this.props;
+
     if (education) {
       return education.map((school, key) =>
         <SingleSchoolForm
@@ -83,7 +85,7 @@ class EducationFormComponent extends Component {
     return (
       <View>
         <View>
-          {this.renderContent(this.props)}
+          {this.renderContent()}
         </View>
         <CardSection>
           <Button onPress={this.addSchool.bind(this)}>
