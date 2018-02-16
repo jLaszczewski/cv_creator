@@ -9,3 +9,4 @@ export * from './PictureGetter';
 export * from './SliderInput';
 export * from './OnPressTitle';
 export * from './CheckBox';
+export * from './DeleteButton';

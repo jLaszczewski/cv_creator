@@ -14,3 +14,5 @@ export const SKILLS_FORM = 'skills_form';
 export const EXPERIENCES_FORM = 'experiences_form';
 export const EDUCATION_FORM = 'education_form';
 export const PORTFOLIO_FORM = 'portfolio_form';
+export const TECHNOLOGIES_FORM = 'technologies_form';
+export const STATS_FORM = 'stats_form';

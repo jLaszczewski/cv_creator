@@ -1,15 +1,13 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListView, View, CameraRoll } from 'react-native';
+import { ListView, View } from 'react-native';
 import { employeesFetch } from '../../../actions';
 import EmployeeItem from './subcomponents/EmployeeItem';
 
 class EmployeeListComponent extends Component {
   componentWillMount() {
     this.props.employeesFetch();
-    console.log(CameraRoll.getPhotos);
-
     this.createDataSource(this.props);
   }
 

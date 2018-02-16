@@ -24,14 +24,28 @@ export const employeeUpdate = ({ form, prop, value, object }) => {
   };
 };
 
-export const employeeCreate = ({ name, phone, shift }) => {
+export const employeeCreate = ({ basicInformation,
+links,
+tranings,
+personality,
+skills,
+experiences,
+education,
+portfolio }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     dispatch({ type: EMPLOYEE_CREATE_REQUEST });
 
     firebase.database().ref(`/users/${currentUser.uid}/employees`)
       .push({
-        name, phone, shift
+        basicInformation,
+        links,
+        tranings,
+        personality,
+        skills,
+        experiences,
+        education,
+        portfolio
       })
       .then(() => {
         dispatch({ type: EMPLOYEE_CREATE });
@@ -51,12 +65,32 @@ export const employeesFetch = () => {
   };
 };
 
-export const employeeSave = ({ name, phone, shift, uid }) => {
+export const employeeSave = ({
+  basicInformation,
+  links,
+  tranings,
+  personality,
+  skills,
+  experiences,
+  education,
+  portfolio
+}) => {
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/employees/${uid}`)
-      .set({ name, phone, shift })
+    dispatch({ type: EMPLOYEE_CREATE_REQUEST });
+
+    firebase.database().ref(`/users/${currentUser.uid}/employees`)
+      .set({
+        basicInformation,
+        links,
+        tranings,
+        personality,
+        skills,
+        experiences,
+        education,
+        portfolio
+      })
       .then(() => {
         dispatch({ type: EMPLOYEE_SAVE_SUCCESS });
         Actions.pop();

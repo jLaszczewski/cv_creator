@@ -13,6 +13,8 @@ import {
   EXPERIENCES_FORM,
   EDUCATION_FORM,
   PORTFOLIO_FORM,
+  TECHNOLOGIES_FORM,
+  STATS_FORM,
   ADD_ITEM,
   REMOVE_ITEM
 } from '../actions/types';
@@ -47,6 +49,13 @@ const INITIAL_STATE = {
     ...CategoriesList
   }
 };
+
+function removeItem(array, action) {
+    return [
+        ...array.slice(0, action),
+        ...array.slice(action + 1)
+    ];
+}
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -97,21 +106,48 @@ export default (state = INITIAL_STATE, action) => {
               }
             };
 
-        case SKILLS_FORM:
+        case SKILLS_FORM: {
           if (action.payload.prop === ADD_ITEM) {
-            return { ...state,
+            const newState = {
+              ...state,
               skills: state.skills.concat(action.payload.value)
             };
+
+            const newStateWithPorfolio = update(newState, {
+              portfolio: { $set: newState.portfolio.map((project) => (
+                update(project, {
+                    technologies: { $push: [{
+                      nameValue: action.payload.value.nameValue,
+                      checked: false
+                    }] }
+                  })
+                ))
+              }
+            });
+
+            return newStateWithPorfolio;
           }
           if (action.payload.prop === REMOVE_ITEM) {
-            return { ...state,
-              skills: [
-                ...state.skills.slice(0, action.payload.object),
-                ...state.skills.slice(action.payload.object + 1)
-              ]
+            const newState = {
+              ...state,
+              skills: removeItem(state.skills, action.payload.object)
             };
+
+            const newStateWithPorfolio = update(newState, {
+              portfolio: { $set: newState.portfolio.map((project) => (
+                update(project, {
+                    technologies: {
+                      $set: removeItem(project.technologies, action.payload.object)
+                    }
+                  })
+                ))
+              }
+            });
+
+            return newStateWithPorfolio;
           }
-          return update(state, {
+
+          const newState = update(state, {
             skills: {
               [action.payload.prop]: {
                 [action.payload.object]: { $set: action.payload.value }
@@ -119,7 +155,21 @@ export default (state = INITIAL_STATE, action) => {
               }
             }
           );
-
+          if (action.payload.object === 'nameValue') {
+          return update(newState, {
+            portfolio: { $set: newState.portfolio.map((project) => (
+              update(project, {
+                technologies: {
+                  [action.payload.prop]: {
+                    [action.payload.object]: { $set: action.payload.value }
+                  }
+                }
+              })
+            )) }
+          });
+        }
+        return newState;
+        }
         case EXPERIENCES_FORM:
           if (action.payload.prop === ADD_ITEM) {
             return { ...state,
@@ -167,9 +217,26 @@ export default (state = INITIAL_STATE, action) => {
             );
           case PORTFOLIO_FORM:
             if (action.payload.prop === ADD_ITEM) {
-              return { ...state,
+              const newState = { ...state,
                 portfolio: state.portfolio.concat(action.payload.value)
               };
+
+              const newTechnologies = newState.skills.map((skill) => (
+                {
+                  nameValue: skill.nameValue,
+                  checked: false
+                }
+              ));
+
+              return update(newState, {
+                portfolio: {
+                  [newState.portfolio.length - 1]: {
+                    technologies: {
+                      $set: newTechnologies
+                    }
+                  }
+                }
+              });
             }
             if (action.payload.prop === REMOVE_ITEM) {
               return { ...state,
@@ -187,6 +254,52 @@ export default (state = INITIAL_STATE, action) => {
                 }
               }
             );
+          case TECHNOLOGIES_FORM:
+            return update(state, {
+              portfolio: {
+                [action.payload.prop]: {
+                technologies: {
+                    [action.payload.value]: {
+                      checked: { $set: !state.portfolio[action.payload.prop].technologies[action.payload.value].checked }
+                    }
+                  }
+                }
+              }
+            });
+          case STATS_FORM:
+            if (action.payload.prop.type === ADD_ITEM) {
+              return update(state, {
+                portfolio: {
+                  [action.payload.prop.project]: {
+                  stats: {
+                      $push: [action.payload.value]
+                    }
+                  }
+                }
+              });
+            }
+            if (action.payload.prop.type === REMOVE_ITEM) {
+              return update(state, {
+                portfolio: {
+                  [action.payload.prop.project]: {
+                  stats: {
+                      $splice: [[action.payload.prop.param, 1]]
+                    }
+                  }
+                }
+              });
+            }
+            return update(state, {
+              portfolio: {
+                [action.payload.prop.project]: {
+                  stats: {
+                    [action.payload.prop.param]: {
+                      [action.payload.prop.paramProp]: { $set: action.payload.value }
+                    }
+                  }
+                }
+              }
+            });
         default:
           return state;
       }

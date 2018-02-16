@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { employeeUpdate } from '../../../../../actions';
-import { Input, OnPressTitle, Button, CardSection } from '../../../../common';
-import { PORTFOLIO_FORM } from '../../../../../actions/types';
-import TechnologiesForm from './TechnologiesForm';
+import { Input, OnPressTitle, Button, CardSection, CheckBox } from '../../../../common';
+import { TECHNOLOGIES_FORM } from '../../../../../actions/types';
+import StatsForm from './StatsForm';
 
 class SingleProjectForm extends Component {
   onPressTechnologies() {
@@ -15,16 +15,43 @@ class SingleProjectForm extends Component {
 
   }
 
+  renderTechnologies() {
+    const {
+      technologies,
+      index,
+      isTechnologiesOpen
+    } = this.props;
+
+    if (isTechnologiesOpen) {
+      return technologies.map((technology, key) => (
+          <CheckBox
+            key={key}
+            label={technology.nameValue}
+            checked={technology.checked}
+            onPress={() => this.props.employeeUpdate({
+              form: TECHNOLOGIES_FORM,
+              prop: index,
+              value: key,
+            })}
+          />
+        )
+      );
+    }
+  }
+
   renderContent() {
     const {
+      isStatsOpen,
+      onPressStatsExtension,
+      onPressTechnologiesExtension,
       isOpen,
       index,
       nameValue,
       nameOnChangeText,
       descriptionValue,
       descriptionOnChangeText,
-      onPressDelete,
-      employeeUpdate
+      stats,
+      onPressDelete
      } = this.props;
 
     if (isOpen) {
@@ -42,15 +69,16 @@ class SingleProjectForm extends Component {
             value={descriptionValue}
             onChangeText={descriptionOnChangeText}
           />
-          <OnPressTitle onPress={this.onPressTechnologies.bind(this)}>
+          <OnPressTitle onPress={onPressTechnologiesExtension}>
             Application uses:
           </OnPressTitle>
-          <TechnologiesForm
-            isOpen
+          {this.renderTechnologies()}
+          <StatsForm
+            index={index}
+            stats={stats}
+            onPressExtension={onPressStatsExtension}
+            isOpen={isStatsOpen}
           />
-          <OnPressTitle onPress={this.onPressStats.bind(this)}>
-            Statistic
-          </OnPressTitle>
           <Button
             onPress={onPressDelete}
             redButton
@@ -82,14 +110,5 @@ class SingleProjectForm extends Component {
     );
   }
 }
-//
-// const mapStateToProps = (state) => {
-//   const {
-//     technologies,
-//     stats
-//   } = state.employeeForm.potfolio[this.props.index];
-//
-//   return { technologies, stats };
-// };
 
 export default connect(null, { employeeUpdate })(SingleProjectForm);

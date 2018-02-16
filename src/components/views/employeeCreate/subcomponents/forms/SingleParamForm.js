@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Input, OnPressTitle, SliderInput, Button, CardSection } from '../../../../common';
+import { Input, OnPressTitle, Button, CardSection } from '../../../../common';
 
-class SingleSkillForm extends Component {
+class SingleParamForm extends Component {
   renderContent() {
     const {
       isOpen,
-      nameValue,
-      nameOnChangeText,
-      onSlidingComplete,
-      slideValue,
+      activitiesValue,
+      activitiesOnChangeText,
+      quantityValue,
+      quantityOnChangeText,
       onPressDelete
      } = this.props;
 
@@ -17,25 +17,25 @@ class SingleSkillForm extends Component {
       return (
         <View>
           <Input
-            label='name'
-            placeholder='iOS'
-            value={nameValue}
-            onChangeText={nameOnChangeText}
-            autoCapitalize='none'
+            label='Quantity'
+            placeholder='~100K+'
+            value={quantityValue}
+            onChangeText={quantityOnChangeText}
+            autoCapitalize='characters'
           />
-          <SliderInput
-            maximumValue={10}
-            minimumValue={0}
-            step={1}
-            onSlidingComplete={onSlidingComplete}
-            value={slideValue}
+          <Input
+            label='Activities'
+            placeholder='DATABASE REQUEST'
+            value={activitiesValue}
+            onChangeText={activitiesOnChangeText}
+            autoCapitalize='characters'
           />
           <Button
             onPress={onPressDelete}
             redButton
             style={{ marginTop: 10, marginBottom: 5 }}
           >
-            Delete
+            Delete Parameter
           </Button>
         </View>
       );
@@ -61,4 +61,4 @@ class SingleSkillForm extends Component {
   }
 }
 
-export default SingleSkillForm;
+export default SingleParamForm;

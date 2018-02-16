@@ -9,13 +9,13 @@ import {
 const uncheckedImage = require('./icons/checkbox/unchecked.png');
 const checkedImage = require('./icons/checkbox/checked.png');
 
-const CheckBox = ({ isChecked, onPress, label }) => {
+const CheckBox = ({ checked, onPress, label }) => {
   const { containerStyle, labelStyle } = styles;
 
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={containerStyle} >
-        <Image source={isChecked ? checkedImage : uncheckedImage} />
+        <Image source={checked ? checkedImage : uncheckedImage} />
         <Text style={labelStyle}>{label}</Text>
       </View>
     </TouchableWithoutFeedback>

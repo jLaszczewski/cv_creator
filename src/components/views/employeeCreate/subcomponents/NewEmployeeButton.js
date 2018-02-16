@@ -1,8 +1,10 @@
+
+
 import React, { Component } from 'react';
 import { View, LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
-import { CardSection, Card, OnPressTitle } from '../../../common';
-import { selectCategory, employeeCreate } from '../../../../actions';
+import { Card, Button } from '../../../common';
+import { employeeCreate } from '../../../../actions';
 import {
   BasicInformationForm,
   LinksForm,
@@ -17,6 +19,30 @@ import {
 class CategoryItem extends Component {
   componentWillUpdate() {
       LayoutAnimation.easeInEaseOut();
+  }
+
+  onButtonPress() {
+    const {
+      basicInformation = {},
+      links = {},
+      tranings = {},
+      personality = {},
+      skills = {},
+      experiences = {},
+      education = {},
+      portfolio = {}
+    } = this.props;
+
+    this.props.employeeCreate(
+      basicInformation,
+      links,
+      tranings,
+      personality,
+      skills,
+      experiences,
+      education,
+      portfolio
+    );
   }
 
   renderCategory() {
@@ -47,16 +73,11 @@ class CategoryItem extends Component {
   }
 
   render() {
-    const { id, title, isOpen } = this.props.category;
-
     return (
       <Card>
-        <CardSection>
-          <OnPressTitle onPress={() => this.props.selectCategory({ id, isOpen: !isOpen })} isOpen={isOpen}>
-            {title}
-          </OnPressTitle>
-        </CardSection>
-        {this.renderCategory()}
+        <Button onPress={this.onButtonPress.bind(this)}>
+          Save employee
+        </Button>
       </Card>
     );
   }
@@ -86,4 +107,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { selectCategory, employeeCreate })(CategoryItem);
+export default connect(mapStateToProps, { employeeCreate })(CategoryItem);

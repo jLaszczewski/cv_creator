@@ -14,13 +14,13 @@ class ProfessionalSkillsFormComponent extends Component {
       value: {
         nameValue: '',
         slideValue: 5,
-        isOpen: true
+        isOpen: true,
+        item: 'nameValue'
       }
     });
   }
 
   renderContent({ skills }) {
-    console.log(skills);
     if (skills) {
       return skills.map((skill, key) =>
         <SingleSkillForm

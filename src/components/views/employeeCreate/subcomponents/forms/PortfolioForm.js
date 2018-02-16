@@ -14,8 +14,10 @@ class PortfolioFormComponent extends Component {
       value: {
         nameValue: '',
         descriptionValue: '',
-        applicationValue: [],
-        statsValue: [],
+        isTechnologiesOpen: true,
+        technologies: [],
+        isStatsOpen: true,
+        stats: [],
         isOpen: true
       }
     });
@@ -25,7 +27,7 @@ class PortfolioFormComponent extends Component {
     const { portfolio } = this.props;
 
     if (portfolio) {
-      return portfolio.map((project, key) =>
+      return portfolio.map((project, key) => (
         <SingleProjectForm
           key={key}
           index={key}
@@ -43,8 +45,8 @@ class PortfolioFormComponent extends Component {
             value: descriptionValue,
             object: 'descriptionValue'
           })}
-          applicationValue={project.applicationValue}
-          statsValue={project.statsValue}
+          technologies={project.technologies}
+          stats={project.stats}
           onPressDelete={() => this.props.employeeUpdate({
             form: PORTFOLIO_FORM,
             prop: REMOVE_ITEM,
@@ -57,9 +59,23 @@ class PortfolioFormComponent extends Component {
             value: !project.isOpen,
             object: 'isOpen'
           })}
+          isTechnologiesOpen={project.isTechnologiesOpen}
+          onPressTechnologiesExtension={() => this.props.employeeUpdate({
+            form: PORTFOLIO_FORM,
+            prop: key,
+            value: !project.isTechnologiesOpen,
+            object: 'isTechnologiesOpen'
+          })}
+          onPressStatsExtension={() => this.props.employeeUpdate({
+            form: PORTFOLIO_FORM,
+            prop: key,
+            value: !project.isStatsOpen,
+            object: 'isStatsOpen'
+          })}
+          isStatsOpen={project.isStatsOpen}
           isOpen={project.isOpen}
         />
-      );
+      ));
     }
   }
 
