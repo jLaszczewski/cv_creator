@@ -1,64 +1,44 @@
-import React, { Component } from 'react';
-import { View } from 'react-native';
-import { Input, OnPressTitle, SliderInput, Button, CardSection } from '../../../../common';
+import React from 'react';
+import { Input, ExpandableCard, SliderInput, Button, CardSection } from '../../../../common';
 
-class SingleSkillForm extends Component {
-  renderContent() {
-    const {
-      isOpen,
-      nameValue,
-      nameOnChangeText,
-      onSlidingComplete,
-      slideValue,
-      onPressDelete
-     } = this.props;
-
-    if (isOpen) {
-      return (
-        <View>
-          <Input
-            label='name'
-            placeholder='iOS'
-            value={nameValue}
-            onChangeText={nameOnChangeText}
-            autoCapitalize='none'
-          />
-          <SliderInput
-            maximumValue={10}
-            minimumValue={0}
-            step={1}
-            onSlidingComplete={onSlidingComplete}
-            value={slideValue}
-          />
-          <Button
-            onPress={onPressDelete}
-            redButton
-            style={{ marginTop: 10, marginBottom: 5 }}
-          >
-            Delete
-          </Button>
-        </View>
-      );
-    }
-  }
-
-  render() {
-    const {
-      nameValue,
-      onPressExtension
-     } = this.props;
-
-    return (
-      <CardSection style={{ flexDirection: 'column' }}>
-        <OnPressTitle
-          onPress={onPressExtension}
-        >
-          {nameValue}
-        </OnPressTitle>
-        {this.renderContent()}
-      </CardSection>
-    );
-  }
-}
+const SingleSkillForm = ({
+  nameValue,
+  isOpen,
+  onPressExtension,
+  nameOnChangeText,
+  onSlidingComplete,
+  slideValue,
+  onPressDelete
+}) => (
+  <ExpandableCard
+    onPress={onPressExtension}
+    isOpen={isOpen}
+    label={nameValue}
+  >
+    <CardSection style={{ flexDirection: 'column' }}>
+      <Input
+        label='name'
+        placeholder='iOS'
+        value={nameValue}
+        onChangeText={nameOnChangeText}
+        autoCapitalize='none'
+      />
+      <SliderInput
+        maximumValue={10}
+        minimumValue={0}
+        step={1}
+        onSlidingComplete={onSlidingComplete}
+        value={slideValue}
+      />
+      <Button
+        onPress={onPressDelete}
+        redButton
+        style={{ marginTop: 10, marginBottom: 5 }}
+      >
+        Delete
+      </Button>
+    </CardSection>
+  </ExpandableCard>
+);
 
 export default SingleSkillForm;

@@ -1,23 +1,29 @@
 import React from 'react';
 import { Text, View, Image, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { CardSection } from './';
 
 const showMore = require('./icons/extension/showMore.png');
 const showLess = require('./icons/extension/showLess.png');
 
-const OnPressTitle = ({ children, onPress, isOpen }) => {
+const ExpandableCard = ({ children, onPress, isOpen, label }) => {
   const { rowStyle, categoryTitleStyle, textContainer } = styles;
 
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
-      <View style={rowStyle}>
-        <View style={textContainer}>
-          <Text style={categoryTitleStyle}>
-            {children}
-          </Text>
-        </View>
-        <Image source={isOpen ? showLess : showMore} />
-      </View>
-    </TouchableWithoutFeedback>
+    <View style={{ flex: 1 }}>
+      <CardSection>
+        <TouchableWithoutFeedback onPress={onPress}>
+          <View style={rowStyle}>
+            <View style={textContainer}>
+              <Text style={categoryTitleStyle}>
+                {label}
+              </Text>
+            </View>
+            <Image source={isOpen ? showLess : showMore} />
+          </View>
+        </TouchableWithoutFeedback>
+      </CardSection>
+      {isOpen ? children : <View />}
+    </View>
   );
 };
 
@@ -40,4 +46,4 @@ const styles = {
   }
 };
 
-export { OnPressTitle };
+export { ExpandableCard };

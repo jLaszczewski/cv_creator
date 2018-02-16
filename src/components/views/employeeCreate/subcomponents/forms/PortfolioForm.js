@@ -31,6 +31,7 @@ class PortfolioFormComponent extends Component {
         <SingleProjectForm
           key={key}
           index={key}
+
           nameValue={project.nameValue}
           nameOnChangeText={(nameValue) => this.props.employeeUpdate({
             form: PORTFOLIO_FORM,
@@ -38,6 +39,7 @@ class PortfolioFormComponent extends Component {
             value: nameValue,
             object: 'nameValue'
           })}
+
           descriptionValue={project.descriptionValue}
           descriptionOnChangeText={(descriptionValue) => this.props.employeeUpdate({
             form: PORTFOLIO_FORM,
@@ -45,20 +47,8 @@ class PortfolioFormComponent extends Component {
             value: descriptionValue,
             object: 'descriptionValue'
           })}
+
           technologies={project.technologies}
-          stats={project.stats}
-          onPressDelete={() => this.props.employeeUpdate({
-            form: PORTFOLIO_FORM,
-            prop: REMOVE_ITEM,
-            value: '',
-            object: key
-          })}
-          onPressExtension={() => this.props.employeeUpdate({
-            form: PORTFOLIO_FORM,
-            prop: key,
-            value: !project.isOpen,
-            object: 'isOpen'
-          })}
           isTechnologiesOpen={project.isTechnologiesOpen}
           onPressTechnologiesExtension={() => this.props.employeeUpdate({
             form: PORTFOLIO_FORM,
@@ -66,14 +56,30 @@ class PortfolioFormComponent extends Component {
             value: !project.isTechnologiesOpen,
             object: 'isTechnologiesOpen'
           })}
+
+          stats={project.stats}
+          isStatsOpen={project.isStatsOpen}
           onPressStatsExtension={() => this.props.employeeUpdate({
             form: PORTFOLIO_FORM,
             prop: key,
             value: !project.isStatsOpen,
             object: 'isStatsOpen'
           })}
-          isStatsOpen={project.isStatsOpen}
+
           isOpen={project.isOpen}
+          onPressExtension={() => this.props.employeeUpdate({
+            form: PORTFOLIO_FORM,
+            prop: key,
+            value: !project.isOpen,
+            object: 'isOpen'
+          })}
+
+          onPressDelete={() => this.props.employeeUpdate({
+            form: PORTFOLIO_FORM,
+            prop: REMOVE_ITEM,
+            value: '',
+            object: key
+          })}
         />
       ));
     }

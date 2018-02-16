@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { CardSection, Button, OnPressTitle } from '../../../../common';
+import { CardSection, Button, ExpandableCard } from '../../../../common';
 import { ADD_ITEM, STATS_FORM, REMOVE_ITEM } from '../../../../../actions/types';
 import { employeeUpdate } from '../../../../../actions';
 import SingleParamForm from './SingleParamForm';
@@ -75,33 +74,26 @@ class StatsForm extends Component {
     }
   }
 
-  renderContent() {
-    const { isOpen } = this.props;
-
-    if (isOpen) {
-      return (
-        <View>
-          {this.renderStats()}
-          <CardSection>
-            <Button onPress={this.addParam.bind(this)}>
-              Add Parameter
-            </Button>
-          </CardSection>
-        </View>
-      );
-    }
-  }
-
   render() {
-    const { onPressExtension } = this.props;
+    const {
+      onPressExtension,
+      isOpen,
+
+    } = this.props;
 
     return (
-      <View>
-        <OnPressTitle onPress={onPressExtension}>
-          Statisic
-        </OnPressTitle>
-        {this.renderContent()}
-      </View>
+      <ExpandableCard
+        onPress={onPressExtension}
+        isOpen={isOpen}
+        label={'Statisic'}
+      >
+        {this.renderStats()}
+        <CardSection>
+          <Button onPress={this.addParam.bind(this)}>
+            Add Parameter
+          </Button>
+        </CardSection>
+      </ExpandableCard>
     );
   }
 }
