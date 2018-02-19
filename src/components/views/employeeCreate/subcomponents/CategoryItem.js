@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
-import { ExpandableCard, Card } from '../../../common';
+import { ExpandableCard, Card, Button } from '../../../common';
 import { selectCategory, employeeCreate } from '../../../../actions';
 import {
   BasicInformationForm,
@@ -17,6 +17,32 @@ import {
 class CategoryItem extends Component {
   componentWillUpdate() {
       LayoutAnimation.easeInEaseOut();
+  }
+
+  onButtonPress() {
+    const {
+      basicInformation = {
+        name: ''
+      },
+      links = {},
+      tranings = {},
+      personality = {},
+      skills = {},
+      experiences = {},
+      education = {},
+      portfolio = {}
+    } = this.props;
+
+    this.props.employeeCreate({
+      basicInformation,
+      links,
+      tranings,
+      personality,
+      skills,
+      experiences,
+      education,
+      portfolio
+    });
   }
 
   renderCategory() {
@@ -49,16 +75,39 @@ class CategoryItem extends Component {
   render() {
     const { id, title, isOpen } = this.props.category;
 
+    const isCreateButton = (id === 'createButton');
+
     return (
-      <Card>
-        <ExpandableCard
-          onPress={() => this.props.selectCategory({ id, isOpen: !isOpen })}
-          isOpen={isOpen}
-          label={title}
-        >
-        {this.renderCategory()}
-        </ExpandableCard>
-      </Card>
+      <View>
+        {isCreateButton ? (
+          <Card
+            style={{
+              borderRadius: 5,
+              marginTop: 25
+            }}
+          >
+            <Button
+              onPress={this.onButtonPress.bind(this)}
+              style={{
+                marginRight: 0,
+                marginLeft: 0
+              }}
+            >
+              {title}
+            </Button>
+          </Card>
+        ) : (
+          <Card>
+            <ExpandableCard
+              onPress={() => this.props.selectCategory({ id, isOpen: !isOpen })}
+              isOpen={isOpen}
+              label={title}
+            >
+              {this.renderCategory()}
+            </ExpandableCard>
+          </Card>
+        )}
+      </View>
     );
   }
 }

@@ -27,13 +27,13 @@ class TechnologiesForm extends Component {
 
   render() {
     const {
-      onPressExtension,
+      onPressTechnologiesExtension,
       isOpen
      } = this.props;
 
     return (
       <ExpandableCard
-        onPress={onPressExtension}
+        onPress={onPressTechnologiesExtension}
         isOpen={isOpen}
         label={'Application uses'}
       >

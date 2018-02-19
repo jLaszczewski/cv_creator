@@ -39,4 +39,8 @@
     "title": "PORTFOLIO",
     "isOpen": false
   },
+  {
+    "id": "createButton",
+    "title": "SAVE EMPLOYEE"
+  }
 ]

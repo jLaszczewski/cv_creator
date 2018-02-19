@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 import CategoryItem from './subcomponents/CategoryItem';
-import { selectCategory } from '../../../actions';
 
 
 class EmployeeCreateComponent extends Component {
@@ -39,9 +38,11 @@ class EmployeeCreateComponent extends Component {
 const mapStateToProps = (state) => {
   const { categories } = state.employeeForm;
 
+  console.log(state);
+
   return { categories };
 };
 
-const EmployeeCreate = connect(mapStateToProps, { selectCategory })(EmployeeCreateComponent);
+const EmployeeCreate = connect(mapStateToProps)(EmployeeCreateComponent);
 
 export { EmployeeCreate };

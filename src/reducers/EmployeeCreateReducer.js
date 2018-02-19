@@ -306,7 +306,7 @@ export default (state = INITIAL_STATE, action) => {
     case EMPLOYEE_CREATE_REQUEST:
       return { ...state, loading: true };
     case EMPLOYEE_CREATE:
-      return { INITIAL_STATE };
+      return INITIAL_STATE;
     case EMPLOYEE_SAVE_SUCCESS:
       return { INITIAL_STATE };
     case SELECT_CATEGORY:
