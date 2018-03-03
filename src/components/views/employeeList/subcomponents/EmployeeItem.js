@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
-// import { Actions } from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 import { CardSection } from '../../../common';
 
 class EmployeeItem extends Component {
   onRowPress() {
-    // const { employee } = this.props;
+    const { employee } = this.props;
+    const edit = true;
 
-    // Actions.employeeEdit({ employee });
+    Actions.employeeCreate({ employee, edit });
   }
 
   render() {
@@ -35,4 +36,4 @@ const styles = {
   }
 };
 
-export default EmployeeItem;
+export default (EmployeeItem);

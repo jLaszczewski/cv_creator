@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
@@ -22,7 +23,9 @@ class CertificationAndTrainingsFormContent extends Component {
 
   renderContent({ tranings }) {
     if (tranings) {
-      return tranings.map((traning, key) =>
+      return _.map(tranings, (traning, key) => {
+        console.log(traning, key);
+        return (
         <SingleTraningForm
           key={key}
           nameValue={traning.nameValue}
@@ -49,7 +52,6 @@ class CertificationAndTrainingsFormContent extends Component {
           onPressDelete={() => this.props.employeeUpdate({
             form: TRAINING_FORM,
             prop: REMOVE_ITEM,
-            value: '',
             object: key
           })}
           onPressExtension={() => this.props.employeeUpdate({
@@ -59,7 +61,8 @@ class CertificationAndTrainingsFormContent extends Component {
             object: 'isOpen'
           })}
           isOpen={traning.isOpen}
-        />
+        />);
+        }
       );
     }
   }

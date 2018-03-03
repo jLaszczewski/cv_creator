@@ -39,8 +39,6 @@ export const employeeCreate = ({
   return (dispatch) => {
     dispatch({ type: EMPLOYEE_CREATE_REQUEST });
 
-    console.log(EMPLOYEE_CREATE);
-
     firebase.database().ref(`/users/${currentUser.uid}/employees`)
       .push({
         basicInformation,

@@ -1,80 +1,82 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { CardSection, Button } from '../../../../common';
 import { employeeUpdate } from '../../../../../actions';
-import SingleExperienceForm from './SingleExperienceForm';
-import { EXPERIENCES_FORM, ADD_ITEM, REMOVE_ITEM } from '../../../../../actions/types';
+import SingleSchoolForm from './SingleSchoolForm';
+import { EDUCATION_FORM, ADD_ITEM, REMOVE_ITEM } from '../../../../../actions/types';
 
-class WorkExperienceFormComponent extends Component {
-  addExperience() {
+class EducationFormComponent extends Component {
+  addSchool() {
     this.props.employeeUpdate({
-      form: EXPERIENCES_FORM,
+      form: EDUCATION_FORM,
       prop: ADD_ITEM,
       value: {
-        nameValue: '',
+        degreeValue: '',
         beginDateValue: '',
         finishDateValue: '',
-        jobTitleValue: '',
-        responsibilityValue: '',
+        schoolValue: '',
         isOpen: true
       }
     });
   }
 
-  renderContent({ experiences }) {
-    if (experiences) {
-      return experiences.map((experience, key) =>
-        <SingleExperienceForm
+  renderContent() {
+    const { education } = this.props;
+
+    if (education) {
+      return _.map(education, (school, key) =>
+        <SingleSchoolForm
           key={key}
-          nameValue={experience.nameValue}
-          nameOnChangeText={(nameValue) => this.props.employeeUpdate({
-            form: EXPERIENCES_FORM,
+          degreeValue={school.degreeValue}
+          degreeOnChangeText={(degreeValue) => this.props.employeeUpdate({
+            form: EDUCATION_FORM,
             prop: key,
-            value: nameValue,
-            object: 'nameValue'
+            value: degreeValue,
+            object: 'degreeValue'
           })}
-          beginDateValue={experience.beginDateValue}
+          beginDateValue={school.beginDateValue}
           beginDateOnChangeText={(beginDateValue) => this.props.employeeUpdate({
-            form: EXPERIENCES_FORM,
+            form: EDUCATION_FORM,
             prop: key,
             value: beginDateValue,
             object: 'beginDateValue'
           })}
-          finishDateValue={experience.finishDateValue}
+          finishDateValue={school.finishDateValue}
           finishDateOnChangeText={(finishDateValue) => this.props.employeeUpdate({
-            form: EXPERIENCES_FORM,
+            form: EDUCATION_FORM,
             prop: key,
             value: finishDateValue,
             object: 'finishDateValue'
           })}
-          jobTitleValue={experience.jobTitleValue}
-          jobTitleOnChangeText={(jobTitleValue) => this.props.employeeUpdate({
-            form: EXPERIENCES_FORM,
+          schoolValue={school.schoolValue}
+          schoolOnChangeText={(schoolValue) => this.props.employeeUpdate({
+            form: EDUCATION_FORM,
             prop: key,
-            value: jobTitleValue,
-            object: 'jobTitleValue'
+            value: schoolValue,
+            object: 'schoolValue'
           })}
-          responsibilityValue={experience.responsibility}
+          responsibilityValue={school.responsibility}
           responsibilityOnChangeText={(responsibilityValue) => this.props.employeeUpdate({
-            form: EXPERIENCES_FORM,
+            form: EDUCATION_FORM,
             prop: key,
             value: responsibilityValue,
             object: 'responsibilityValue'
           })}
           onPressDelete={() => this.props.employeeUpdate({
-            form: EXPERIENCES_FORM,
+            form: EDUCATION_FORM,
             prop: REMOVE_ITEM,
             value: '',
             object: key
           })}
           onPressExtension={() => this.props.employeeUpdate({
-            form: EXPERIENCES_FORM,
+            form: EDUCATION_FORM,
             prop: key,
-            value: !experience.isOpen,
+            value: !school.isOpen,
             object: 'isOpen'
           })}
-          isOpen={experience.isOpen}
+          isOpen={school.isOpen}
         />
       );
     }
@@ -84,10 +86,10 @@ class WorkExperienceFormComponent extends Component {
     return (
       <View>
         <View>
-          {this.renderContent(this.props)}
+          {this.renderContent()}
         </View>
         <CardSection>
-          <Button onPress={this.addExperience.bind(this)}>
+          <Button onPress={this.addSchool.bind(this)}>
             Add New
           </Button>
         </CardSection>
@@ -97,13 +99,13 @@ class WorkExperienceFormComponent extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { experiences } = state.employeeForm;
+  const { education } = state.employeeForm;
 
-  return { experiences };
+  return { education };
 };
 
-const WorkExperienceForm = connect(mapStateToProps, {
+const EducationForm = connect(mapStateToProps, {
   employeeUpdate
-})(WorkExperienceFormComponent);
+})(EducationFormComponent);
 
-export { WorkExperienceForm };
+export { EducationForm };

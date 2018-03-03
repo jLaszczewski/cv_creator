@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CardSection, Button, ExpandableCard } from '../../../../common';
@@ -8,12 +9,11 @@ import SingleParamForm from './SingleParamForm';
 class StatsForm extends Component {
   addParam() {
     const { index } = this.props;
-
     this.props.employeeUpdate({
       form: STATS_FORM,
       prop: {
         type: ADD_ITEM,
-        project: index
+        projectId: index,
       },
       value: {
         quantity: '',
@@ -26,8 +26,9 @@ class StatsForm extends Component {
   renderStats() {
     const { stats, index } = this.props;
 
+
     if (stats) {
-      return stats.map((param, key) => (
+      return _.map(stats, (param, key) => (
         <SingleParamForm
           key={key}
           index={key}
@@ -35,8 +36,8 @@ class StatsForm extends Component {
           quantityOnChangeText={(quantity) => this.props.employeeUpdate({
             form: STATS_FORM,
             prop: {
-              project: index,
-              param: key,
+              projectId: index,
+              statId: key,
               paramProp: 'quantity'
             },
             value: quantity,
@@ -45,8 +46,8 @@ class StatsForm extends Component {
           activitiesOnChangeText={(activities) => this.props.employeeUpdate({
             form: STATS_FORM,
             prop: {
-              project: index,
-              param: key,
+              projectId: index,
+              statId: key,
               paramProp: 'activities'
             },
             value: activities,
@@ -54,8 +55,8 @@ class StatsForm extends Component {
           onPressExtension={() => this.props.employeeUpdate({
             form: STATS_FORM,
             prop: {
-              project: index,
-              param: key,
+              projectId: index,
+              statId: key,
               paramProp: 'isOpen'
             },
             value: !param.isOpen,
@@ -64,8 +65,8 @@ class StatsForm extends Component {
             form: STATS_FORM,
             prop: {
               type: REMOVE_ITEM,
-              project: index,
-              param: key
+              projectId: index,
+              statId: key,
             }
           })}
           isOpen={param.isOpen}

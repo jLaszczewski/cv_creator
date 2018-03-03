@@ -18,14 +18,14 @@ const Input = ({
       <View style={containerStyle}>
         <Text style={labelStyle}>{label}</Text>
         <TextInput
+          style={inputStyle}
+          multiline={multiline}
           blurOnSubmit={blurOnSubmit}
           autoCapitalize={autoCapitalize}
           autoCorrect={autoCorrect}
           secureTextEntry={secureTextEntry}
-          multiline={multiline}
           placeholder={placeholder}
           autoCorrect={false}
-          style={inputStyle}
           value={value}
           onChangeText={onChangeText}
         />

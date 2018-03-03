@@ -14,11 +14,14 @@ const SingleProjectForm = ({
       technologies,
       isTechnologiesOpen,
       onPressTechnologiesExtension,
+      usedTechnologies,
       stats,
       isStatsOpen,
       onPressStatsExtension,
       onPressDelete
-    }) => (
+    }) => {
+      const projectNumber = Number(index) + 1;
+      return (
         <Card
           style={{
             marginLeft: 5,
@@ -30,12 +33,12 @@ const SingleProjectForm = ({
         <ExpandableCard
           onPress={onPressExtension}
           isOpen={isOpen}
-          label={nameValue || `Project ${index + 1}`}
+          label={nameValue || `Project ${projectNumber}`}
         >
           <CardSection style={{ flexDirection: 'column' }}>
             <Input
               label='Project name'
-              placeholder={`Project ${index + 1}`}
+              placeholder={`Project ${projectNumber}`}
               value={nameValue}
               onChangeText={nameOnChangeText}
             />
@@ -48,6 +51,7 @@ const SingleProjectForm = ({
             <TechnologiesForm
               index={index}
               technologies={technologies}
+              usedTechnologies={usedTechnologies}
               isOpen={isTechnologiesOpen}
               onPressExtension={onPressTechnologiesExtension}
             />
@@ -68,5 +72,6 @@ const SingleProjectForm = ({
         </ExpandableCard>
         </Card>
     );
+  };
 
 export default SingleProjectForm;

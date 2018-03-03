@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
@@ -22,7 +23,7 @@ class ProfessionalSkillsFormComponent extends Component {
 
   renderContent({ skills }) {
     if (skills) {
-      return skills.map((skill, key) =>
+      return _.map(skills, (skill, key) =>
         <SingleSkillForm
           key={key}
           nameValue={skill.nameValue}

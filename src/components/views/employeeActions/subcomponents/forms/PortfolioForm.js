@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
@@ -15,23 +16,22 @@ class PortfolioFormComponent extends Component {
         nameValue: '',
         descriptionValue: '',
         isTechnologiesOpen: true,
-        technologies: [],
+        usedTechnologies: {},
         isStatsOpen: true,
-        stats: [],
+        stats: {},
         isOpen: true
       }
     });
   }
 
   renderContent() {
-    const { portfolio } = this.props;
+    const { portfolio, skills } = this.props;
 
     if (portfolio) {
-      return portfolio.map((project, key) => (
+      return _.map(portfolio, (project, key) => (
         <SingleProjectForm
           key={key}
           index={key}
-
           nameValue={project.nameValue}
           nameOnChangeText={(nameValue) => this.props.employeeUpdate({
             form: PORTFOLIO_FORM,
@@ -48,7 +48,8 @@ class PortfolioFormComponent extends Component {
             object: 'descriptionValue'
           })}
 
-          technologies={project.technologies}
+          technologies={skills}
+          usedTechnologies={project.usedTechnologies}
           isTechnologiesOpen={project.isTechnologiesOpen}
           onPressTechnologiesExtension={() => this.props.employeeUpdate({
             form: PORTFOLIO_FORM,
@@ -102,9 +103,9 @@ class PortfolioFormComponent extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { portfolio } = state.employeeForm;
+  const { portfolio, skills } = state.employeeForm;
 
-  return { portfolio };
+  return { portfolio, skills };
 };
 
 const PortfolioForm = connect(mapStateToProps, {

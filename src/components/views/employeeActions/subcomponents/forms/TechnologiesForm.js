@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ExpandableCard, CheckBox } from '../../../../common';
@@ -6,18 +7,20 @@ import { employeeUpdate } from '../../../../../actions';
 
 class TechnologiesForm extends Component {
   renderContent() {
-    const { technologies, index } = this.props;
+    const { usedTechnologies, technologies, index } = this.props;
 
     if (technologies) {
-      return technologies.map((technology, key) => (
+      return _.map(technologies, (technology, key) => (
           <CheckBox
             key={key}
             label={technology.nameValue}
-            checked={technology.checked}
+            checked={usedTechnologies[key]}
             onPress={() => this.props.employeeUpdate({
               form: TECHNOLOGIES_FORM,
-              prop: index,
-              value: key,
+              prop: {
+                projectId: index,
+                technologyId: key
+              }
             })}
           />
         )
