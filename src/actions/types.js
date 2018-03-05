@@ -16,3 +16,5 @@ export const EDUCATION_FORM = 'education_form';
 export const PORTFOLIO_FORM = 'portfolio_form';
 export const TECHNOLOGIES_FORM = 'technologies_form';
 export const STATS_FORM = 'stats_form';
+export const SET_EDIT_STATE = 'set_edit_state';
+export const RESET_STATE = 'reset_state';

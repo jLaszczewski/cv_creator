@@ -7,7 +7,9 @@ import {
   EMPLOYEE_CREATE,
   EMPLOYEE_CREATE_REQUEST,
   EMPLOYEES_FETCH_SUCCESS,
-  EMPLOYEE_SAVE_SUCCESS
+  EMPLOYEE_SAVE_SUCCESS,
+  SET_EDIT_STATE,
+  RESET_STATE
 } from './types';
 
 export const selectCategory = ({ id, isOpen }) => {
@@ -17,10 +19,42 @@ export const selectCategory = ({ id, isOpen }) => {
   };
 };
 
+export const resetState = () => {
+  return {
+    type: RESET_STATE,
+    payload: null
+  };
+};
+
 export const employeeUpdate = ({ form, prop, value, object }) => {
   return {
     type: EMPLOYEE_UPDATE,
     payload: { form, prop, value, object }
+  };
+};
+
+export const setEditState = ({
+  basicInformation,
+  links,
+  tranings,
+  personality,
+  skills,
+  experiences,
+  education,
+  portfolio
+}) => {
+  return {
+    type: SET_EDIT_STATE,
+    payload: {
+      basicInformation,
+      links,
+      tranings,
+      personality,
+      skills,
+      experiences,
+      education,
+      portfolio
+   }
   };
 };
 
@@ -76,14 +110,17 @@ export const employeeSave = ({
   skills,
   experiences,
   education,
-  portfolio
+  portfolio,
+  uid
 }) => {
   const { currentUser } = firebase.auth();
+
+  console.log(uid);
 
   return (dispatch) => {
     dispatch({ type: EMPLOYEE_CREATE_REQUEST });
 
-    firebase.database().ref(`/users/${currentUser.uid}/employees`)
+    firebase.database().ref(`/users/${currentUser.uid}/employees/${uid}`)
       .set({
         basicInformation,
         links,

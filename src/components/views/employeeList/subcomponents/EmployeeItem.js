@@ -12,7 +12,7 @@ class EmployeeItem extends Component {
   }
 
   render() {
-    const { name, lastname } = this.props.employee;
+    const { name, lastname } = this.props.employee.basicInformation;
     const { titleStyle } = styles;
 
     return (

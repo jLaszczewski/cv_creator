@@ -2,11 +2,38 @@ import React, { Component } from 'react';
 import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 import CategoryItem from './subcomponents/CategoryItem';
+import {
+  setEditState
+} from '../../../actions';
 
 
 class EmployeeCreateComponent extends Component {
   componentWillMount() {
-      this.createDataSource(this.props);
+    this.createDataSource(this.props);
+
+    const { employee } = this.props;
+    if (employee) {
+      const {
+        basicInformation = {},
+        links = {},
+        tranings = {},
+        personality = {},
+        skills = {},
+        experiences = {},
+        education = {},
+        portfolio = {}
+      } = employee;
+      this.props.setEditState({
+        basicInformation,
+        links,
+        tranings,
+        personality,
+        skills,
+        experiences,
+        education,
+        portfolio
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -22,6 +49,10 @@ class EmployeeCreateComponent extends Component {
   }
 
   renderRow(category) {
+    const { employee } = this.props;
+    if (employee) {
+      return <CategoryItem employee={employee} category={category} />;
+    }
     return <CategoryItem category={category} />;
   }
 
@@ -29,7 +60,7 @@ class EmployeeCreateComponent extends Component {
     return (
       <ListView
         dataSource={this.dataSource}
-        renderRow={this.renderRow}
+        renderRow={this.renderRow.bind(this)}
       />
     );
   }
@@ -41,6 +72,6 @@ const mapStateToProps = (state) => {
   return { categories };
 };
 
-const EmployeeCreate = connect(mapStateToProps)(EmployeeCreateComponent);
+const EmployeeCreate = connect(mapStateToProps, { setEditState })(EmployeeCreateComponent);
 
 export { EmployeeCreate };

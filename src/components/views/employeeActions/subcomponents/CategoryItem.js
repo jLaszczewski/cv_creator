@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import { View, LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
 import { ExpandableCard, Card, Button } from '../../../common';
-import { selectCategory, employeeCreate } from '../../../../actions';
+import {
+  selectCategory,
+  employeeCreate,
+  employeeSave,
+  employeeDelete,
+  resetState
+} from '../../../../actions';
 import {
   BasicInformationForm,
   LinksForm,
@@ -19,21 +25,14 @@ class CategoryItem extends Component {
       LayoutAnimation.easeInEaseOut();
   }
 
-  onButtonPress() {
-    const {
-      basicInformation = {
-        name: ''
-      },
-      links = {},
-      tranings = {},
-      personality = {},
-      skills = {},
-      experiences = {},
-      education = {},
-      portfolio = {}
-    } = this.props;
+  componentWillUnmount() {
+    if (this.props.employee) {
+      this.props.resetState();
+    }
+  }
 
-    this.props.employeeCreate({
+  onSaveButtonPress() {
+    const {
       basicInformation,
       links,
       tranings,
@@ -41,8 +40,101 @@ class CategoryItem extends Component {
       skills,
       experiences,
       education,
-      portfolio
-    });
+      portfolio,
+      employee
+    } = this.props;
+
+    if (employee) {
+      const { uid } = employee;
+      this.props.employeeSave({
+        basicInformation,
+        links,
+        tranings,
+        personality,
+        skills,
+        experiences,
+        education,
+        portfolio,
+        uid
+      });
+    } else {
+      this.props.employeeCreate({
+        basicInformation,
+        links,
+        tranings,
+        personality,
+        skills,
+        experiences,
+        education,
+        portfolio,
+      });
+    }
+  }
+
+  renderButtons() {
+    const { employee } = this.props;
+
+    if (employee) {
+      const uid = employee.uid;
+
+      return (
+        <View>
+          <Card
+            style={{
+              borderRadius: 5,
+              marginTop: 25
+            }}
+          >
+            <Button
+              onPress={this.onSaveButtonPress.bind(this)}
+              style={{
+                marginRight: 0,
+                marginLeft: 0
+              }}
+            >
+              Edit Employee
+            </Button>
+          </Card>
+
+          <Card
+            style={{
+              borderRadius: 5,
+              marginTop: 25
+            }}
+          >
+            <Button
+              onPress={() => this.props.employeeDelete({ uid })}
+              redButton
+              style={{
+                marginRight: 0,
+                marginLeft: 0
+              }}
+            >
+              Delete Employee
+            </Button>
+          </Card>
+        </View>
+      );
+    }
+
+    return (
+      <Card
+        style={{
+          borderRadius: 5,
+          marginTop: 25
+        }}
+      >
+        <Button
+          onPress={this.onSaveButtonPress.bind(this)}
+          style={{
+            marginRight: 0,
+            marginLeft: 0
+          }}
+        >
+          Save Employee
+        </Button>
+      </Card>
+    );
   }
 
   renderCategory() {
@@ -73,40 +165,26 @@ class CategoryItem extends Component {
   }
 
   render() {
-    const { id, title, isOpen } = this.props.category;
-
-    const isCreateButton = (id === 'createButton');
+    const { id, title, isOpen, buttons } = this.props.category;
+    if (buttons) {
+      return (
+        <View>
+          {this.renderButtons()}
+        </View>
+      );
+    }
 
     return (
       <View>
-        {isCreateButton ? (
-          <Card
-            style={{
-              borderRadius: 5,
-              marginTop: 25
-            }}
+        <Card>
+          <ExpandableCard
+            onPress={() => this.props.selectCategory({ id, isOpen: !isOpen })}
+            isOpen={isOpen}
+            label={title}
           >
-            <Button
-              onPress={this.onButtonPress.bind(this)}
-              style={{
-                marginRight: 0,
-                marginLeft: 0
-              }}
-            >
-              {title}
-            </Button>
-          </Card>
-        ) : (
-          <Card>
-            <ExpandableCard
-              onPress={() => this.props.selectCategory({ id, isOpen: !isOpen })}
-              isOpen={isOpen}
-              label={title}
-            >
-              {this.renderCategory()}
-            </ExpandableCard>
-          </Card>
-        )}
+            {this.renderCategory()}
+          </ExpandableCard>
+        </Card>
       </View>
     );
   }
@@ -136,4 +214,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { selectCategory, employeeCreate })(CategoryItem);
+export default connect(mapStateToProps, {
+  selectCategory,
+  employeeCreate,
+  employeeSave,
+  employeeDelete,
+  resetState
+})(CategoryItem);

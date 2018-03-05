@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import update from 'react-addons-update';
 import {
   EMPLOYEE_UPDATE,
   EMPLOYEE_CREATE,
@@ -16,8 +15,10 @@ import {
   PORTFOLIO_FORM,
   TECHNOLOGIES_FORM,
   STATS_FORM,
+  SET_EDIT_STATE,
   ADD_ITEM,
-  REMOVE_ITEM
+  REMOVE_ITEM,
+  RESET_STATE
 } from '../actions/types';
 import CategoriesList from '../public/CategoriesList';
 
@@ -53,6 +54,12 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case SET_EDIT_STATE: {
+      return { ...state, ...action.payload };
+    }
+    case RESET_STATE: {
+      return INITIAL_STATE;
+    }
     case EMPLOYEE_UPDATE:
       switch (action.payload.form) {
         case BASIC_INFORMATION_FORM:
@@ -291,7 +298,7 @@ export default (state = INITIAL_STATE, action) => {
     case EMPLOYEE_CREATE:
       return INITIAL_STATE;
     case EMPLOYEE_SAVE_SUCCESS:
-      return { INITIAL_STATE };
+      return INITIAL_STATE;
     case SELECT_CATEGORY:
       return {
         ...state,

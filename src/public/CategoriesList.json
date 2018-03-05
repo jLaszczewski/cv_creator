@@ -40,7 +40,6 @@
     "isOpen": false
   },
   {
-    "id": "createButton",
-    "title": "SAVE EMPLOYEE"
+    "buttons": "buttons"
   }
 ]

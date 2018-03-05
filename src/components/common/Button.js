@@ -1,25 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
-const Button = ({ onPress, redButton, style, children }) => {
-  const { buttonStyle, textStyle, redTextStyle, redButtonStyle } = styles;
-  if (redButton) {
+class Button extends Component {
+  state = {
+    disabled: false
+  }
+
+  onPressWithDisable() {
+    this.setState({ disabled: true });
+    this.props.onPress();
+  }
+
+  render() {
+    const { redButton, style, children } = this.props;
+    const { buttonStyle, textStyle, redTextStyle, redButtonStyle } = styles;
+    const { disabled } = this.state;
+
     return (
-        <TouchableOpacity onPress={onPress} style={[redButtonStyle, style]}>
-          <Text style={redTextStyle}>
+        <TouchableOpacity disabled={disabled} onPress={this.onPressWithDisable.bind(this)} style={redButton ? [redButtonStyle, style] : [buttonStyle, style]}>
+          <Text style={redButton ? redTextStyle : textStyle}>
             {children}
           </Text>
         </TouchableOpacity>
     );
   }
-  return (
-      <TouchableOpacity onPress={onPress} style={[buttonStyle, style]}>
-        <Text style={textStyle}>
-          {children}
-        </Text>
-      </TouchableOpacity>
-  );
-};
+}
 
 const styles = {
   redTextStyle: {
